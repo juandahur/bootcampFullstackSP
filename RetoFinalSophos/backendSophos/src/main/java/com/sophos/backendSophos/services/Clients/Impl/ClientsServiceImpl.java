@@ -1,6 +1,7 @@
 package com.sophos.backendSophos.services.Clients.Impl;
 
 import com.sophos.backendSophos.dto.Clients.ClientsCreateDto;
+import com.sophos.backendSophos.dto.Clients.ClientsUpdateDto;
 import com.sophos.backendSophos.models.Clients;
 import com.sophos.backendSophos.repository.ClientsRepository;
 import com.sophos.backendSophos.services.Clients.ClientsService;
@@ -11,6 +12,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientsServiceImpl implements ClientsService {
@@ -39,4 +41,26 @@ public class ClientsServiceImpl implements ClientsService {
         return clientsRepository.save(newClient);
     }
 
+    public Clients update(ClientsUpdateDto client, Long id){
+        Clients clientUpdate = findById(id).get();
+        clientUpdate.setIdDocument(client.getIdDocument());
+        clientUpdate.setIdNumber(client.getIdNumber());
+        clientUpdate.setFirstName(client.getFirstName());
+        clientUpdate.setLastName(client.getLastName());
+        clientUpdate.setEmail(client.getEmail());
+        clientUpdate.setBirthDate(client.getBirthDate());
+        clientUpdate.setModifiedBy("Admin");
+        clientUpdate.setModifiedOn(LocalDate.now());
+
+        return clientsRepository.save(clientUpdate);
+    }
+
+    public Optional<Clients> findById(Long id){
+
+        return clientsRepository.findById(id);
+    }
+
+    public void deleteById(Long id){
+        clientsRepository.deleteById(id);
+    }
 }

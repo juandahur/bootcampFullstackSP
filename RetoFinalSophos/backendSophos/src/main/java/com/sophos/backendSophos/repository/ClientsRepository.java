@@ -4,4 +4,6 @@ import com.sophos.backendSophos.models.Clients;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClientsRepository extends JpaRepository<Clients, Long> {
+
+    public void deleteById(Long id);
 }

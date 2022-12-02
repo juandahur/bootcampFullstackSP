@@ -1,11 +1,8 @@
 package com.sophos.backendSophos.dto.Clients;
 
-import jakarta.persistence.Column;
-
 import java.time.LocalDate;
 
-
-public class ClientsFindAllDto {
+public class ClientsUpdateDto {
 
     private Long id;
 
@@ -20,10 +17,6 @@ public class ClientsFindAllDto {
     private String email;
 
     private LocalDate birthDate;
-
-    private LocalDate createdAt;
-
-    private String createdBy;
 
     private LocalDate modifiedOn;
 
@@ -57,14 +50,6 @@ public class ClientsFindAllDto {
         return birthDate;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
     public LocalDate getModifiedOn() {
         return modifiedOn;
     }
@@ -72,4 +57,5 @@ public class ClientsFindAllDto {
     public String getModifiedBy() {
         return modifiedBy;
     }
+
 }

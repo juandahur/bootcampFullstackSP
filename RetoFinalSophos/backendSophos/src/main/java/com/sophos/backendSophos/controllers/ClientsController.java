@@ -1,6 +1,7 @@
 package com.sophos.backendSophos.controllers;
 
 import com.sophos.backendSophos.dto.Clients.ClientsCreateDto;
+import com.sophos.backendSophos.dto.Clients.ClientsUpdateDto;
 import com.sophos.backendSophos.models.Clients;
 import com.sophos.backendSophos.services.Clients.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class ClientsController {
     @Autowired
     ClientsService clientsService;
 
+    //CREATE
+
     @GetMapping
     private ResponseEntity<List<Clients>> listClients(){
         return ResponseEntity.ok(clientsService.getAllClients());
@@ -28,9 +31,8 @@ public class ClientsController {
     @PostMapping
     private ResponseEntity save(@RequestBody ClientsCreateDto clientCreate) {
 
-
         try {
-            if(validateClient(clientCreate)){
+            if(validateClientCreate(clientCreate)){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body("El cliente debe ser mayor de edad");
 
@@ -43,9 +45,7 @@ public class ClientsController {
         }
     }
 
-
-
-    private boolean validateClient(ClientsCreateDto clientCreate) {
+    private boolean validateClientCreate(ClientsCreateDto clientCreate) {
 
         LocalDate date1 = clientCreate.getBirthDate();
         LocalDate date2 = LocalDate.now();
@@ -53,7 +53,45 @@ public class ClientsController {
 
         return (diff<18);
 
+    }
+
+    // UPDATE
+    @PatchMapping("/{id}")
+    private ResponseEntity update(@RequestBody ClientsUpdateDto clientUpdate, @PathVariable Long id) {
+
+
+        try {
+            if(validateClientUpdate(clientUpdate)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("El cliente debe ser mayor de edad");
+
+            }
+            Clients temporal = clientsService.update(clientUpdate, id);
+            return ResponseEntity.created(new URI("/clients" + temporal.getId())).body(temporal);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    private boolean validateClientUpdate(ClientsUpdateDto clientUpdate) {
+
+        LocalDate date1 = clientUpdate.getBirthDate();
+        LocalDate date2 = LocalDate.now();
+        long diff = ChronoUnit.YEARS.between(date1,date2);
+
+        return (diff<18);
 
     }
+
+    //DELETE
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Void> deleteById(@PathVariable Long id) {
+
+        clientsService.deleteById(id);
+        return ResponseEntity.ok().build();
+
+    }
+
 
 }
