@@ -9,12 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,12 +26,14 @@ public class ClientsController {
     }
 
     @PostMapping
-    private ResponseEntity<Clients> save(@RequestBody ClientsCreateDto clientCreate) {
+    private ResponseEntity save(@RequestBody ClientsCreateDto clientCreate) {
 
 
         try {
             if(validateClient(clientCreate)){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("El cliente debe ser mayor de edad");
+
             }
             Clients temporal = clientsService.create(clientCreate);
             return ResponseEntity.created(new URI("/clients" + temporal.getId())).body(temporal);
@@ -52,7 +50,6 @@ public class ClientsController {
         LocalDate date1 = clientCreate.getBirthDate();
         LocalDate date2 = LocalDate.now();
         long diff = ChronoUnit.YEARS.between(date1,date2);
-        System.out.println("Fecha nacimiento " + date1 + "  "+ "Hoy:   " +date2+ " Diferencia:  "+ diff);
 
         return (diff<18);
 
