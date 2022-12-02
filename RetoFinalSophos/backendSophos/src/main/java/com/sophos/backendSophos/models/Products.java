@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -36,13 +36,13 @@ public class Products {
     private Boolean exemptGMT;
 
     @Column(name= "createdAt")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name= "createdBy")
     private String createdBy;
 
     @Column(name= "modifiedOn")
-    private Date modifiedOn;
+    private LocalDate modifiedOn;
 
     @Column(name= "modifiedBy")
     private String modifiedBy;
@@ -61,7 +61,7 @@ public class Products {
     public Products() {
     }
 
-    public Products(String accountType, Integer accountNumber, String firstName, Float lastName, Float availableBalance, Boolean exemptGMT, Date createdAt, String createdBy, Date modifiedOn, String modifiedBy, Clients clients, List<Transactions> transactionsList) {
+    public Products(String accountType, Integer accountNumber, String firstName, Float lastName, Float availableBalance, Boolean exemptGMT, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, Clients clients, List<Transactions> transactionsList) {
         this.accountType = accountType;
         this.accountNumber = accountNumber;
         this.firstName = firstName;
@@ -135,11 +135,11 @@ public class Products {
         this.exemptGMT = exemptGMT;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -151,11 +151,11 @@ public class Products {
         this.createdBy = createdBy;
     }
 
-    public Date getModifiedOn() {
+    public LocalDate getModifiedOn() {
         return modifiedOn;
     }
 
-    public void setModifiedOn(Date modifiedOn) {
+    public void setModifiedOn(LocalDate modifiedOn) {
         this.modifiedOn = modifiedOn;
     }
 

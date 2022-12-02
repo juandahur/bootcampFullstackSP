@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 
@@ -34,16 +33,16 @@ public class Clients {
     private String email;
 
     @Column(name= "birthDate")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name= "createdAt")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name= "createdBy")
     private String createdBy;
 
     @Column(name= "modifiedOn")
-    private Date modifiedOn;
+    private LocalDate modifiedOn;
 
     @Column(name= "modifiedBy")
     private String modifiedBy;
@@ -60,7 +59,7 @@ public class Clients {
 
     //
 
-    public Clients(String idDocument, int idNumber, String firstName, String lastName, String email, Date birthDate, Date createdAt, String createdBy, Date modifiedOn, String modifiedBy, List<Products> productsList) {
+    public Clients(String idDocument, int idNumber, String firstName, String lastName, String email, LocalDate birthDate, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, List<Products> productsList) {
         this.idDocument = idDocument;
         this.idNumber = idNumber;
         this.firstName = firstName;
@@ -126,19 +125,19 @@ public class Clients {
         this.email = email;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -150,11 +149,11 @@ public class Clients {
         this.createdBy = createdBy;
     }
 
-    public Date getModifiedOn() {
+    public LocalDate getModifiedOn() {
         return modifiedOn;
     }
 
-    public void setModifiedOn(Date modifiedOn) {
+    public void setModifiedOn(LocalDate modifiedOn) {
         this.modifiedOn = modifiedOn;
     }
 

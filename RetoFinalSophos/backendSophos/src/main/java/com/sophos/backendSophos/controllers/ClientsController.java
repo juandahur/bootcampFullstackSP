@@ -34,18 +34,11 @@ public class ClientsController {
 
 
         try {
-            validateClient(clientCreate);
+            if(validateClient(clientCreate)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
             Clients temporal = clientsService.create(clientCreate);
             return ResponseEntity.created(new URI("/clients" + temporal.getId())).body(temporal);
-            /*
-            if (validateClient(clientCreate)){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-                }
-                */
-
-
-
-
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -54,26 +47,16 @@ public class ClientsController {
 
 
 
-    private void validateClient(ClientsCreateDto clientCreate) {
+    private boolean validateClient(ClientsCreateDto clientCreate) {
 
-        //long diff = ChronoUnit.YEARS.between((Temporal) clientCreate.getBirthDate(),(Temporal) Date.from(Instant.now()));
-        //return diff < 18;
-        //return false;
-        Date date1 = clientCreate.getBirthDate();
-        System.out.println(date1);
-        Date date2 = Date.from(Instant.now());
-        System.out.println(date1 + " " +date2);
-                LocalDate local1;
-        local1 = date1.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-        LocalDate local2;
-        local2 = date2.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-        long diff = ChronoUnit.YEARS.between(local1,local2);
+        LocalDate date1 = clientCreate.getBirthDate();
+        LocalDate date2 = LocalDate.now();
+        long diff = ChronoUnit.YEARS.between(date1,date2);
+        System.out.println("Fecha nacimiento " + date1 + "  "+ "Hoy:   " +date2+ " Diferencia:  "+ diff);
 
-        System.out.println(local1 + " " + date1 + "  "+local2+ "  " +date2+ "  "+ diff);
+        return (diff<18);
+
+
     }
 
 }

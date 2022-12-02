@@ -32,9 +32,9 @@ public class ClientsServiceImpl implements ClientsService {
         newClient.setEmail(client.getEmail());
         newClient.setBirthDate(client.getBirthDate());
         newClient.setCreatedBy("Admin");
-        newClient.setCreatedAt(Date.from(Instant.now()));
+        newClient.setCreatedAt(LocalDate.now());
         newClient.setModifiedBy("Admin");
-        newClient.setModifiedOn(Date.from(Instant.now()));
+        newClient.setModifiedOn(LocalDate.now());
 
         return clientsRepository.save(newClient);
     }

@@ -3,7 +3,7 @@ package com.sophos.backendSophos.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "transactions")
@@ -23,13 +23,13 @@ public class Transactions {
     private String transactionState;
 
     @Column(name= "createdAt")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name= "createdBy")
     private String createdBy;
 
     @Column(name= "modifiedOn")
-    private Date modifiedOn;
+    private LocalDate modifiedOn;
 
     @Column(name= "modifiedBy")
     private String modifiedBy;
@@ -46,7 +46,7 @@ public class Transactions {
 
     }
 
-    public Transactions(String transactionType, String description, String transactionState, Date createdAt, String createdBy, Date modifiedOn, String modifiedBy, Products products) {
+    public Transactions(String transactionType, String description, String transactionState, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, Products products) {
         this.transactionType = transactionType;
         this.description = description;
         this.transactionState = transactionState;
@@ -93,11 +93,11 @@ public class Transactions {
         this.transactionState = transactionState;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -109,11 +109,11 @@ public class Transactions {
         this.createdBy = createdBy;
     }
 
-    public Date getModifiedOn() {
+    public LocalDate getModifiedOn() {
         return modifiedOn;
     }
 
-    public void setModifiedOn(Date modifiedOn) {
+    public void setModifiedOn(LocalDate modifiedOn) {
         this.modifiedOn = modifiedOn;
     }
 

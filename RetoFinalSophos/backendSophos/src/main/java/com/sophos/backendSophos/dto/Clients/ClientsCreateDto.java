@@ -1,6 +1,6 @@
 package com.sophos.backendSophos.dto.Clients;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ClientsCreateDto {
 
@@ -14,7 +14,7 @@ public class ClientsCreateDto {
 
     private String email;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     public String getIdDocument() {
         return idDocument;
@@ -36,7 +36,7 @@ public class ClientsCreateDto {
         return email;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 }
