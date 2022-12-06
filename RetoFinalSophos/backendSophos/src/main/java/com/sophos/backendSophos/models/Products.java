@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,16 +22,16 @@ public class Products {
     private String accountType;
 
     @Column(name = "accountNumber")
-    private Integer accountNumber;
+    private String accountNumber;
 
     @Column(name = "productState")
-    private String firstName;
+    private String productState;
 
     @Column(name = "accountBalance")
-    private Float lastName;
+    private BigDecimal accountBalance;
 
     @Column(name= "availableBalance")
-    private Float availableBalance;
+    private BigDecimal availableBalance;
 
     @Column(name= "exemptGMT")
     private Boolean exemptGMT;
@@ -61,11 +62,12 @@ public class Products {
     public Products() {
     }
 
-    public Products(String accountType, Integer accountNumber, String firstName, Float lastName, Float availableBalance, Boolean exemptGMT, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, Clients clients, List<Transactions> transactionsList) {
+    public Products(Long id, String accountType, String accountNumber, String productState, BigDecimal accountBalance, BigDecimal availableBalance, Boolean exemptGMT, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, Clients clients, List<Transactions> transactionsList) {
+        this.id = id;
         this.accountType = accountType;
         this.accountNumber = accountNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.productState = productState;
+        this.accountBalance = accountBalance;
         this.availableBalance = availableBalance;
         this.exemptGMT = exemptGMT;
         this.createdAt = createdAt;
@@ -95,35 +97,35 @@ public class Products {
         this.accountType = accountType;
     }
 
-    public Integer getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(Integer accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getProductState() {
+        return productState;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setProductState(String productState) {
+        this.productState = productState;
     }
 
-    public Float getLastName() {
-        return lastName;
+    public BigDecimal getAccountBalance() {
+        return accountBalance;
     }
 
-    public void setLastName(Float lastName) {
-        this.lastName = lastName;
+    public void setAccountBalance(BigDecimal accountBalance) {
+        this.accountBalance = accountBalance;
     }
 
-    public Float getAvailableBalance() {
+    public BigDecimal getAvailableBalance() {
         return availableBalance;
     }
 
-    public void setAvailableBalance(Float availableBalance) {
+    public void setAvailableBalance(BigDecimal availableBalance) {
         this.availableBalance = availableBalance;
     }
 

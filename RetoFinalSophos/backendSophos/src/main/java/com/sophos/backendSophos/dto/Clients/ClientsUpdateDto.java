@@ -8,7 +8,7 @@ public class ClientsUpdateDto {
 
     private String idDocument;
 
-    private int idNumber;
+    private String idNumber;
 
     private String firstName;
 
@@ -30,7 +30,7 @@ public class ClientsUpdateDto {
         return idDocument;
     }
 
-    public int getIdNumber() {
+    public String getIdNumber() {
         return idNumber;
     }
 

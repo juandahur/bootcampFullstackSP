@@ -5,6 +5,7 @@ import com.sophos.backendSophos.dto.Clients.ClientsUpdateDto;
 import com.sophos.backendSophos.models.Clients;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientsService {
 
@@ -14,6 +15,8 @@ public interface ClientsService {
     Clients update(ClientsUpdateDto client, Long id);
 
     void deleteById(Long id);
+
+    Optional<Clients> findById(Long id);
 
 
 

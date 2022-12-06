@@ -6,7 +6,7 @@ public class ClientsCreateDto {
 
     private String idDocument;
 
-    private int idNumber;
+    private String idNumber;
 
     private String firstName;
 
@@ -20,7 +20,7 @@ public class ClientsCreateDto {
         return idDocument;
     }
 
-    public int getIdNumber() {
+    public String getIdNumber() {
         return idNumber;
     }
 

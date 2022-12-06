@@ -21,7 +21,7 @@ public class Clients {
     private String idDocument;
 
     @Column(name = "idNumber")
-    private int idNumber;
+    private String idNumber;
 
     @Column(name = "firstName")
     private String firstName;
@@ -59,7 +59,7 @@ public class Clients {
 
     //
 
-    public Clients(String idDocument, int idNumber, String firstName, String lastName, String email, LocalDate birthDate, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, List<Products> productsList) {
+    public Clients(String idDocument, String idNumber, String firstName, String lastName, String email, LocalDate birthDate, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, List<Products> productsList) {
         this.idDocument = idDocument;
         this.idNumber = idNumber;
         this.firstName = firstName;
@@ -93,11 +93,11 @@ public class Clients {
         this.idDocument = idDocument;
     }
 
-    public int getIdNumber() {
+    public String getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(int idNumber) {
+    public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
     }
 
