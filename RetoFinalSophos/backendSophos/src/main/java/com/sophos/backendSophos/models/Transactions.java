@@ -3,6 +3,7 @@ package com.sophos.backendSophos.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -19,8 +20,15 @@ public class Transactions {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "transactionState")
-    private String transactionState;
+    @Column(name = "value")
+    private BigDecimal value;
+
+    @Column(name = "destinationAccountId")
+    private Long destinationAccountId;
+
+    @Column(name = "operationType")
+    private String operationType;
+
 
     @Column(name= "createdAt")
     private LocalDate createdAt;
@@ -46,17 +54,18 @@ public class Transactions {
 
     }
 
-    public Transactions(String transactionType, String description, String transactionState, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, Products products) {
+    public Transactions(String transactionType, String description, BigDecimal value, Long destinationAccountId, String operationType, LocalDate createdAt, String createdBy, LocalDate modifiedOn, String modifiedBy, Products products) {
         this.transactionType = transactionType;
         this.description = description;
-        this.transactionState = transactionState;
+        this.value = value;
+        this.destinationAccountId = destinationAccountId;
+        this.operationType = operationType;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.modifiedOn = modifiedOn;
         this.modifiedBy = modifiedBy;
         this.products = products;
     }
-
 
     //Getters and Setters
 
@@ -85,12 +94,28 @@ public class Transactions {
         this.description = description;
     }
 
-    public String getTransactionState() {
-        return transactionState;
+    public BigDecimal getValue() {
+        return value;
     }
 
-    public void setTransactionState(String transactionState) {
-        this.transactionState = transactionState;
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
+
+    public Long getDestinationAccountId() {
+        return destinationAccountId;
+    }
+
+    public void setDestinationAccountId(Long destinationAccountId) {
+        this.destinationAccountId = destinationAccountId;
+    }
+
+    public String getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
     }
 
     public LocalDate getCreatedAt() {

@@ -6,7 +6,6 @@ import com.sophos.backendSophos.models.Products;
 import com.sophos.backendSophos.repository.ClientsRepository;
 import com.sophos.backendSophos.repository.ProductsRepository;
 import com.sophos.backendSophos.services.Products.ProductsService;
-import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,23 +29,27 @@ public class ProductsServiceImpl implements ProductsService {
         return productsRepository.findAll();
     }
 
+    public Optional<Products> getProductById(Long id){
+        return productsRepository.findById(id);
+    }
+
     public List<Products> getProductsByClientId(Long id){
         return productsRepository.findByClientsId(id);
     }
 
-    public Products create(ProductsCreateDto product) {
+    public Products createProductByClientId(ProductsCreateDto product, Long id) {
 
         Products newProduct = new Products();
-        Clients newClient = clientsRepository.findById(product.getId()).get();
+        Clients newClient = clientsRepository.findById(id).get();
         newProduct.setClients(newClient);
         List<String> listProductsId = new ArrayList<>();
         productsRepository.findAll().forEach(productId -> {
             listProductsId.add(productId.getId().toString());
         });
         String productType = product.getAccountType();
-
+        System.out.println(productType);
         newProduct.setAccountNumber(accountNumberValidated(productType,listProductsId));
-
+        newProduct.setAccountType(product.getAccountType());
         newProduct.setProductState("Active");
 
         BigDecimal bigDecimalAccountBalance = new BigDecimal(0);
@@ -78,10 +81,10 @@ public class ProductsServiceImpl implements ProductsService {
     }
     static String generateProductId(String type) {
         String productId = "";
-        if (type == "SA") {
+        if (type.equals("SA")) {
             productId = "46";
 
-        } else if (type == "CA") {
+        } else if (type.equals("CA")) {
             productId = "23";
         }
         productId = appendString(productId);

@@ -7,13 +7,7 @@ import java.time.LocalDate;
 
 public class ProductsCreateDto {
 
-    private Long id;
-
     private String accountType;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getAccountType() {
         return accountType;

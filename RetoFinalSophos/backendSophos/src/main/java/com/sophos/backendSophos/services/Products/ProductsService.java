@@ -5,6 +5,7 @@ import com.sophos.backendSophos.models.Products;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface ProductsService {
@@ -13,6 +14,8 @@ public interface ProductsService {
 
     List<Products> getProductsByClientId(Long id);
 
-    Products create(ProductsCreateDto product);
+    Optional<Products> getProductById(Long id);
+
+    Products createProductByClientId(ProductsCreateDto product, Long id);
 
 }
