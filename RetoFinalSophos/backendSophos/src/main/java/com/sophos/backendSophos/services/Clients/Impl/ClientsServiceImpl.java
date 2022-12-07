@@ -7,10 +7,7 @@ import com.sophos.backendSophos.repository.ClientsRepository;
 import com.sophos.backendSophos.services.Clients.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

@@ -3,7 +3,9 @@ package com.sophos.backendSophos.controllers;
 import com.sophos.backendSophos.dto.Clients.ClientsCreateDto;
 import com.sophos.backendSophos.dto.Clients.ClientsUpdateDto;
 import com.sophos.backendSophos.models.Clients;
+import com.sophos.backendSophos.models.Products;
 import com.sophos.backendSophos.services.Clients.ClientsService;
+import com.sophos.backendSophos.services.Products.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class ClientsController {
 
     @Autowired
     ClientsService clientsService;
+
+    @Autowired
+    ProductsService productsService;
 
     //CREATE
 
@@ -86,11 +91,35 @@ public class ClientsController {
 
     //DELETE
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> deleteById(@PathVariable Long id) {
+    private ResponseEntity deleteById(@PathVariable Long id) {
 
-        clientsService.deleteById(id);
-        return ResponseEntity.ok().build();
+     try {
+            if (validateClientDelete(id)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("At least one product don't Cancelled");
 
+            }
+            clientsService.deleteById(id);
+            return ResponseEntity.ok().build();
+
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+    }
+
+    private boolean validateClientDelete(Long id){
+
+       boolean validate = false;
+       List<Products> productsList = productsService.getProductsByClientId(id);
+
+       for(Products product: productsList){
+           if ( (product.getProductState().equals("Cancelled"))){
+               validate = true;
+               break;
+           }
+       }
+       return validate;
     }
 
 

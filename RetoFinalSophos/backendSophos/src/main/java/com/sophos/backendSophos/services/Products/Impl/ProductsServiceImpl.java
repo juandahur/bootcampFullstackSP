@@ -1,6 +1,7 @@
 package com.sophos.backendSophos.services.Products.Impl;
 
 import com.sophos.backendSophos.dto.Products.ProductsCreateDto;
+import com.sophos.backendSophos.dto.Products.ProductsUpdateStateDto;
 import com.sophos.backendSophos.models.Clients;
 import com.sophos.backendSophos.models.Products;
 import com.sophos.backendSophos.repository.ClientsRepository;
@@ -37,6 +38,32 @@ public class ProductsServiceImpl implements ProductsService {
         return productsRepository.findByClientsId(id);
     }
 
+    public Optional<Products> findById(Long id){
+        return productsRepository.findById(id);
+    }
+
+    public Products updateProductState(ProductsUpdateStateDto productUpdate, Long id){
+
+        Products newProduct = findById(id).get();
+        if(productUpdate.getProductState().equals("Cancelled"))
+        {
+            validateProduct(newProduct);
+        }
+
+        newProduct.setProductState(productUpdate.getProductState());
+        newProduct.setModifiedBy("Admin");
+        newProduct.setModifiedOn(LocalDate.now());
+
+        return productsRepository.save(newProduct);
+    }
+
+    public void validateProduct(Products newProduct){
+        if(newProduct.getAccountBalance().compareTo(new BigDecimal(1))>=0){
+
+        }
+
+    }
+
     public Products createProductByClientId(ProductsCreateDto product, Long id) {
 
         Products newProduct = new Products();
@@ -57,9 +84,7 @@ public class ProductsServiceImpl implements ProductsService {
 
         BigDecimal bigDecimalAvailableBalance = new BigDecimal(0);
         newProduct.setAvailableBalance(bigDecimalAvailableBalance);
-
         newProduct.setExemptGMT(false);
-
         newProduct.setCreatedBy("Admin");
         newProduct.setCreatedAt(LocalDate.now());
         newProduct.setModifiedBy("Admin");

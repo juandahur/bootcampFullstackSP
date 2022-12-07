@@ -39,9 +39,20 @@ public class TransactionsController {
     private ResponseEntity saveTransactionByProductId(@RequestBody TransactionsCreateDto transactionCreate, @PathVariable("id") Long id) {
 
         try {
-            if(validateTransactionCreate(transactionCreate,id)){
+            Products product = productsService.getProductById(id).get();
+
+            if(validateProductState(product)){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Saldo insuficiente ");
+                        .body("Cancelled account ");
+            }
+            if (validateInactiveTransactions(product,transactionCreate)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Inactive accounts can't deposit");
+            }
+
+            if(validateTransactionCreate(product,transactionCreate)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Non-sufficient funds ");
 
             }
             Transactions temporal = transactionsService.createTransactionsByProductId(transactionCreate, id);
@@ -52,12 +63,10 @@ public class TransactionsController {
         }
     }
 
-    private boolean validateTransactionCreate(TransactionsCreateDto transactionCreate,Long id) {
+    private boolean validateTransactionCreate(Products product, TransactionsCreateDto transactionCreate) {
 
-        Products product = productsService.getProductById(id).get();
-        String transactionType = transactionCreate.getTransactionType();
         int minumumValue =0;
-        if (transactionType.equals("withdrawal") || transactionType.equals("transfer")) {
+        if (transactionCreate.getTransactionType().equals("withdrawal") || transactionCreate.getTransactionType().equals("transfer")) {
 
             if(product.getAccountType().equals("SA")){
                 minumumValue = 0;
@@ -72,6 +81,19 @@ public class TransactionsController {
             return true;
 
         } return false;
+    }
+
+    private boolean validateProductState(Products product){
+
+        if(product.getProductState().equals("Cancelled")){
+            return true;
+        }return false;
+    }
+
+    private boolean validateInactiveTransactions(Products product,TransactionsCreateDto transactionCreate){
+        if(product.getProductState().equals("Inactive") && transactionCreate.getTransactionType().equals("deposit")){
+            return true;
+        }return false;
     }
 
 

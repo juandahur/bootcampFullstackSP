@@ -2,6 +2,7 @@ package com.sophos.backendSophos.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -48,7 +49,7 @@ public class Clients {
     private String modifiedBy;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "clients")
+    @OneToMany(mappedBy = "clients",cascade = CascadeType.ALL)
     private List<Products> productsList;
 
     //Constructors

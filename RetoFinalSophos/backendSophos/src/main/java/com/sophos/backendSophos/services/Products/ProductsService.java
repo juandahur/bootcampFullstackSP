@@ -1,6 +1,8 @@
 package com.sophos.backendSophos.services.Products;
 
 import com.sophos.backendSophos.dto.Products.ProductsCreateDto;
+import com.sophos.backendSophos.dto.Products.ProductsUpdateStateDto;
+import com.sophos.backendSophos.models.Clients;
 import com.sophos.backendSophos.models.Products;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,9 @@ public interface ProductsService {
     Optional<Products> getProductById(Long id);
 
     Products createProductByClientId(ProductsCreateDto product, Long id);
+
+    Products updateProductState(ProductsUpdateStateDto product, Long id);
+
+    Optional<Products> findById(Long id);
 
 }
