@@ -1,5 +1,6 @@
 package com.sophos.backendSophos.services.Products.Impl;
 
+import com.sophos.backendSophos.dto.Products.ProductsCreateDto;
 import com.sophos.backendSophos.dto.Products.ProductsUpdateStateDto;
 import com.sophos.backendSophos.models.Products;
 import com.sophos.backendSophos.services.Products.ProductsService;
@@ -35,6 +36,12 @@ public class ProductsValidationsServiceImpl implements ProductsValidationsServic
           return false;
       } return true;
 
+    }
+
+    public boolean validateProductAccountType(ProductsCreateDto productCreate){
+        if (productCreate.getAccountType().equals("CA") || productCreate.getAccountType().equals("SA")){
+            return false;
+        } return true;
     }
 
 }

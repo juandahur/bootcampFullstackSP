@@ -45,20 +45,11 @@ public class ProductsServiceImpl implements ProductsService {
     public Products updateProductState(ProductsUpdateStateDto productUpdate, Long id){
 
         Products newProduct = findById(id).get();
-        if(productUpdate.getProductState().equals("Cancelled")){
-            validateProduct(newProduct);
-        }
         newProduct.setProductState(productUpdate.getProductState());
         newProduct.setModifiedBy("Admin");
         newProduct.setModifiedOn(LocalDate.now());
 
         return productsRepository.save(newProduct);
-    }
-
-    public void validateProduct(Products newProduct){
-        if(newProduct.getAccountBalance().compareTo(new BigDecimal(1))>=0){
-
-        }
     }
 
     public Products createProductByClientId(ProductsCreateDto product, Long id) {

@@ -65,7 +65,7 @@ public class ClientsController {
     private ResponseEntity deleteById(@PathVariable Long id) {
         try {
             if (clientsValidationsService.validateClientDelete(id)){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("At least one product don't Cancelled");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("At least one product hasn't been Cancelled");
             }
             clientsService.deleteById(id);
             return ResponseEntity.ok().build();

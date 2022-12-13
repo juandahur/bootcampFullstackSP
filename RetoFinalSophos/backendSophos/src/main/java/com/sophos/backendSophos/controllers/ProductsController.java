@@ -39,7 +39,10 @@ public class ProductsController {
     private ResponseEntity saveProductByClientId(@RequestBody ProductsCreateDto productCreate,@PathVariable("id") Long id) {
 
         try {
-            Products temporal = productsService.createProductByClientId(productCreate,id);
+            if(productsValidationService.validateProductAccountType(productCreate)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please provide a different Account Type");
+
+            }Products temporal = productsService.createProductByClientId(productCreate,id);
             return ResponseEntity.created(new URI("/products" + temporal.getId())).body(temporal);
         }
         catch (Exception e) {

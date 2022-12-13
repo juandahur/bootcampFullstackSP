@@ -37,8 +37,14 @@ public class ClientsValidationsServiceImpl implements ClientsValidationsService 
     public boolean validateClientDelete(Long id){
         boolean validate = false;
         List<Products> productsList = productsService.getProductsByClientId(id);
+
+        if(productsList.size()==0){
+            validate = false;
+            return validate;
+        }
+
         for(Products product: productsList){
-            if ( (product.getProductState().equals("Cancelled"))){
+            if (!(product.getProductState().equals("Cancelled"))){
                 validate = true;
                 break;
             }
