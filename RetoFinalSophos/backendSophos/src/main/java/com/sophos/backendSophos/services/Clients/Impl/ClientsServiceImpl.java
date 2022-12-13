@@ -17,12 +17,15 @@ public class ClientsServiceImpl implements ClientsService {
     @Autowired
     ClientsRepository clientsRepository;
 
-
     public List<Clients> getAllClients() {
         return clientsRepository.findAll();
     }
 
     public Clients create(ClientsCreateDto client){
+        return clientsRepository.save(createNewClient(client));
+    }
+
+    private Clients createNewClient(ClientsCreateDto client){
         Clients newClient = new Clients();
         newClient.setIdDocument(client.getIdDocument());
         newClient.setIdNumber(client.getIdNumber());
@@ -34,12 +37,16 @@ public class ClientsServiceImpl implements ClientsService {
         newClient.setCreatedAt(LocalDate.now());
         newClient.setModifiedBy("Admin");
         newClient.setModifiedOn(LocalDate.now());
-
-        return clientsRepository.save(newClient);
+        return newClient;
     }
 
     public Clients update(ClientsUpdateDto client, Long id){
         Clients clientUpdate = findById(id).get();
+        updateClient(clientUpdate, client);
+        return clientsRepository.save(clientUpdate);
+    }
+
+    private Clients updateClient(Clients clientUpdate, ClientsUpdateDto client){
         clientUpdate.setIdDocument(client.getIdDocument());
         clientUpdate.setIdNumber(client.getIdNumber());
         clientUpdate.setFirstName(client.getFirstName());
@@ -49,11 +56,10 @@ public class ClientsServiceImpl implements ClientsService {
         clientUpdate.setModifiedBy("Admin");
         clientUpdate.setModifiedOn(LocalDate.now());
 
-        return clientsRepository.save(clientUpdate);
+        return clientUpdate;
     }
 
     public Optional<Clients> findById(Long id){
-
         return clientsRepository.findById(id);
     }
 

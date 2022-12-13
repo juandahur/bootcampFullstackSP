@@ -45,11 +45,9 @@ public class ProductsServiceImpl implements ProductsService {
     public Products updateProductState(ProductsUpdateStateDto productUpdate, Long id){
 
         Products newProduct = findById(id).get();
-        if(productUpdate.getProductState().equals("Cancelled"))
-        {
+        if(productUpdate.getProductState().equals("Cancelled")){
             validateProduct(newProduct);
         }
-
         newProduct.setProductState(productUpdate.getProductState());
         newProduct.setModifiedBy("Admin");
         newProduct.setModifiedOn(LocalDate.now());
@@ -61,40 +59,38 @@ public class ProductsServiceImpl implements ProductsService {
         if(newProduct.getAccountBalance().compareTo(new BigDecimal(1))>=0){
 
         }
-
     }
 
     public Products createProductByClientId(ProductsCreateDto product, Long id) {
-
-        Products newProduct = new Products();
         Clients newClient = clientsRepository.findById(id).get();
-        newProduct.setClients(newClient);
+
         List<String> listProductsId = new ArrayList<>();
         productsRepository.findAll().forEach(productId -> {
             listProductsId.add(productId.getId().toString());
         });
-        String productType = product.getAccountType();
-        System.out.println(productType);
-        newProduct.setAccountNumber(accountNumberValidated(productType,listProductsId));
+
+        Products newProduct = createNewProduct(newClient, listProductsId, product);
+        return productsRepository.save(newProduct);
+    }
+
+    private Products createNewProduct(Clients newClient, List<String> listProductsId, ProductsCreateDto product){
+        Products newProduct = new Products();
+        newProduct.setClients(newClient);
+        newProduct.setAccountNumber(accountNumberValidated(product.getAccountType(),listProductsId));
         newProduct.setAccountType(product.getAccountType());
         newProduct.setProductState("Active");
-
-        BigDecimal bigDecimalAccountBalance = new BigDecimal(0);
-        newProduct.setAccountBalance(bigDecimalAccountBalance);
-
-        BigDecimal bigDecimalAvailableBalance = new BigDecimal(0);
-        newProduct.setAvailableBalance(bigDecimalAvailableBalance);
+        newProduct.setAccountBalance(BigDecimal.ZERO);
+        newProduct.setAvailableBalance(BigDecimal.ZERO);
         newProduct.setExemptGMT(false);
         newProduct.setCreatedBy("Admin");
         newProduct.setCreatedAt(LocalDate.now());
         newProduct.setModifiedBy("Admin");
         newProduct.setModifiedOn(LocalDate.now());
 
-
-        return productsRepository.save(newProduct);
+        return newProduct;
     }
 
-    static String accountNumberValidated(String productType, List<String> listProductsId){
+    private static String accountNumberValidated(String productType, List<String> listProductsId){
         boolean validate = true;
         String generatedId = null;
         while (validate) {
@@ -104,7 +100,7 @@ public class ProductsServiceImpl implements ProductsService {
         }
         return generatedId;
     }
-    static String generateProductId(String type) {
+    private static String generateProductId(String type) {
         String productId = "";
         if (type.equals("SA")) {
             productId = "46";
@@ -116,7 +112,7 @@ public class ProductsServiceImpl implements ProductsService {
         return productId;
     }
 
-    static String appendString(String typeString) {
+    private static String appendString(String typeString) {
         String appendedString = typeString;
         Random r = new Random();
         Integer randomNumber = 0;
@@ -129,13 +125,11 @@ public class ProductsServiceImpl implements ProductsService {
         return appendedString;
     }
 
-    static boolean findProductListId(String inputString, List<String> inputList) {
+    private static boolean findProductListId(String inputString, List<String> inputList) {
         boolean stringInList;
         stringInList = inputList.contains(inputString);
 
         return stringInList;
     }
-
-
 
 }
