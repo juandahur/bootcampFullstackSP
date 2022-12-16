@@ -21,6 +21,10 @@ public class ClientsServiceImpl implements ClientsService {
         return clientsRepository.findAll();
     }
 
+    public Optional<Clients> getClientById(Long id){
+        return clientsRepository.findById(id);
+    }
+
     public Clients create(ClientsCreateDto client){
         return clientsRepository.save(createNewClient(client));
     }

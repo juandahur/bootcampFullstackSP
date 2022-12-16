@@ -3,6 +3,7 @@ package com.sophos.backendSophos.controllers;
 import com.sophos.backendSophos.dto.Clients.ClientsCreateDto;
 import com.sophos.backendSophos.dto.Clients.ClientsUpdateDto;
 import com.sophos.backendSophos.models.Clients;
+import com.sophos.backendSophos.models.Products;
 import com.sophos.backendSophos.services.Clients.ClientsService;
 import com.sophos.backendSophos.services.Clients.ClientsValidationsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClientsController {
 
     @Autowired
@@ -26,6 +28,12 @@ public class ClientsController {
     @GetMapping
     private ResponseEntity<List<Clients>> listClients(){
         return ResponseEntity.ok(clientsService.getAllClients());
+    }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<Clients> getClientById(@PathVariable("id") Long id){
+
+        return ResponseEntity.ok(clientsService.getClientById(id).get());
     }
 
     @PostMapping

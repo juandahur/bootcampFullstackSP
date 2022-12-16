@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ClientsService {
 
     List<Clients> getAllClients ();
+    Optional<Clients> getClientById(Long id);
     Clients create(ClientsCreateDto client);
 
     Clients update(ClientsUpdateDto client, Long id);
