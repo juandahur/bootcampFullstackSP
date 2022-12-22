@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+<div class="bg-dark text-secondary text-center">
+    
+    <!-- Show it when there is no transaction -->
+    <div class="no-data text-center" *ngIf="Transactions.length == 0">
+      <p>There is no transaction added yet!</p>
+      
+    </div>
+     <!-- Transaction list table, it hides when there is no transaction -->
+    <div *ngIf="Transactions.length !== 0">
+      <h3 class="mb-auto text-center text-secondary">Transactions</h3>
+      
+      <div class="col-12">
+        <table class="table table-responsive  text-secondary table-dark table-bordered" >
+          <thead>
+            <tr>
+              <th scope="col">Transaction Id</th>
+              <th scope="col">Transaction Type</th>
+              <th scope="col">Description</th>
+              <th scope="col">Value</th>
+              <th scope="col">destination Account Id</th>
+              <th scope="col">operation Type</th>
+              <th scope="col">created By</th>
+              <th scope="col">created At</th>
+              <th scope="col">modified By</th>
+              <th scope="col">modified On</th> 
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of Transactions">
+              <td>{{ transaction.id }}</td>
+              <td>{{ transaction.transactionType }}</td>
+              <td>{{ transaction.description }}</td>
+              <td>{{ transaction.value }}</td>
+              <td>{{ transaction.destinationAccountId }}</td>
+              <td>{{ transaction.operationType }}</td>
+              <td>{{ transaction.createdBy }}</td>
+              <td>{{ transaction.createdAt }}</td>
+              <td>{{ transaction.modifiedBy }}</td>
+              <td>{{ transaction.modifiedOn }}</td>
+              
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-outline-secondary" type="button" routerLink="/menu">
+        Back
+      </button>
+    </div>
+ 
+</div>

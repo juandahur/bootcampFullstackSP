@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="bg-dark text-secondary px-3 py-4 text-center">
+<div class="container custom-container">
+    <div class="col-md-12">
+      <h3 class="mb-3 text-center">Create a Client</h3>
+    <select class="form-select form-select-lg bg-dark text-secondary" [(ngModel)]="clientDetails.idDocument" >
+        <option [value]="item" *ngFor="let item of listIDTypes">{{item}}</option>
+    </select>
+    <div class="form-floating ">
+        <input type="text" [(ngModel)]="clientDetails.idNumber" class="form-control bg-dark text-secondary" placeholder="ID Number">
+        <label for="floatingInput">ID Number</label>
+      </div>
+    <div class="form-floating bg-dark text-secondary">
+        <input type="text" [(ngModel)]="clientDetails.firstName" class="form-control bg-dark text-secondary" placeholder="First Name">
+        <label for="floatingInput">First Name</label>
+    </div>
+      <div class="form-floating bg-dark text-secondary">
+        <input type="text" [(ngModel)]="clientDetails.lastName" class="form-control bg-dark text-secondary" placeholder="Last Name">
+        <label for="floatingInput">Last Name</label>
+      </div>
+      <div class="form-floating bg-dark text-secondary">
+        <input type="mail" [(ngModel)]="clientDetails.email" class="form-control bg-dark text-secondary" placeholder="Email Address">
+        <label for="floatingInput">Email Address</label>
+      </div>
+      <div class="form-floating bg-dark text-secondary">
+        <input type="date" [(ngModel)]="clientDetails.birthDate" class="form-control bg-dark text-secondary" placeholder="Birthday">
+        <label for="floatingInput">Birthday</label>
+      </div>
+      <br>
+      <div class="form-floating bg-dark text-secondary">
+        <button class="btn btn-outline-secondary btn-lg btn-block" (click)="addClient(clientDetails)">Create Client</button>
+      </div>
+    </div>
+
+  </div>
+</div>

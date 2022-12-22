@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+<div class="bg-dark text-secondary py-4 px-4 text-center">
+    
+    <!-- Show it when there is no product -->
+    <div class="no-data text-center" *ngIf="Products.length == 0">
+      <p>There is no product added yet!</p>
+      
+    </div>
+     <!-- Products list table, it hides when there is no client -->
+    <div *ngIf="Products.length !== 0">
+        <div>
+            <h3 class="mb-auto text-center text-secondary">Products Client Id: {{this.id}}</h3>
+        </div>
+        <br>
+      <div class="col-12">
+        <table class="table table-responsive-sm  text-secondary table-dark table-bordered" >
+          <thead>
+            <tr>
+              <th scope="col">Product Id</th>
+              <th scope="col">Account Type</th>
+              <th scope="col">Account Number</th>
+              <th scope="col">State</th>
+              <th scope="col">account Balance</th>
+              <th scope="col">available Balance</th>
+              <th scope="col">exempt GMT</th>
+              <th scope="col">created By</th>
+              <th scope="col">created At</th>
+              <th scope="col">modified By</th>
+              <th scope="col">modified On</th> 
+              <th scope="col">Historial</th>
+              <th scope="col">New Transaction</th>
+              <th scope="col">Active</th>
+              <th scope="col">Inactive</th>
+              <th scope="col">Cancell</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of Products">
+              <td>{{ product.id }}</td>
+              <td>{{ product.accountType }}</td>
+              <td>{{ product.accountNumber }}</td>
+              <td>{{ product.productState }}</td>
+              <td>{{ product.accountBalance }}</td>
+              <td>{{ product.availableBalance }}</td>
+              <td>{{ product.exemptGMT }}</td>
+              <td>{{ product.createdBy }}</td>
+              <td>{{ product.createdAt }}</td>
+              <td>{{ product.modifiedBy }}</td>
+              <td>{{ product.modifiedOn }}</td>
+              <td>    
+                <button class="btn btn-outline-secondary" [routerLink]="['/transactions',product.id]">Historial</button>
+            </td>
+            <td>    
+                <button class="btn btn-outline-secondary" [routerLink]="['/transactions-create',product.id]">Transfer</button>
+            </td>
+            <td>
+                <button class="btn btn-outline-success" (click)="updateProduct(product.id,'Active')">Act</button>
+            </td>
+            <td>
+                <button class="btn btn-outline-warning" (click)="updateProduct(product.id,'Inactive')">Inac</button>
+            </td>
+            <td>    
+                <button class="btn btn-outline-danger" (click)="updateProduct(product.id,'Cancelled')">Canc</button>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-outline-secondary" type="button" routerLink="/menu">
+        Back
+      </button>
+    </div>
+ 
+</div>

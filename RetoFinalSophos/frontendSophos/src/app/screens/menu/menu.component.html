@@ -1,0 +1,10 @@
+<app-navbar></app-navbar>
+<div class="container-fluid px-5 py-5">
+    <div class="d-grid gap-4 col-6 mx-auto ">
+        <button class="btn btn-outline-secondary btn-lg" [routerLink]="['/clients']">Clients</button>
+        <button class="btn btn-outline-secondary btn-lg" [routerLink]="['/products']">Products</button>
+        <button class="btn btn-outline-secondary btn-lg" [routerLink]="['/transactions']">Transactions</button>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

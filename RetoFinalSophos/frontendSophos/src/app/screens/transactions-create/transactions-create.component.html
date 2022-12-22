@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div class="bg-dark text-secondary px-3 py-4 text-center">
+    <div class="container custom-container">
+        <div class="col-md-12">
+          <h3 class="mb-3 text-center">Create Transaction</h3>
+          
+        <select class="form-select form-select-lg bg-dark text-secondary" [(ngModel)]="transactionDetails.transactionType" >
+            <option [value]="item" *ngFor="let item of listTransactionTypes">{{item}}</option>
+        </select>
+        <div class="form-floating ">
+            <input type="text" [(ngModel)]="transactionDetails.value" class="form-control bg-dark text-secondary" placeholder="ID Number">
+            <label for="floatingInput">Value</label>
+          </div>
+       <div *ngIf="transactionDetails.transactionType=='transfer'">
+        <select class="form-select form-select-lg bg-dark text-secondary" [(ngModel)]="transactionDetails.destinationAccountId" >
+            <option [value]="item" *ngFor="let item of Products">{{item.accountNumber}}</option>
+        </select>
+        </div>
+        <br>
+        <div class="form-floating bg-dark text-secondary">
+            <button class="btn btn-outline-secondary btn-lg btn-block" (click)="createTransaction(transactionDetails)">Create Transaction</button>
+        </div>
+        </div>
+    
+      </div>
+</div>
