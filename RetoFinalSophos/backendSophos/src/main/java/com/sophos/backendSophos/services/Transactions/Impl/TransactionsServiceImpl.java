@@ -65,7 +65,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     }
 
     private Transactions createNewTransaction(Transactions newTransaction, TransactionsCreateDto transactionCreate, Products product){
-        newTransaction.setDescription("Transaction type" + transactionCreate.getTransactionType() + " Account " +  transactionCreate.getDestinationAccountId());
+        newTransaction.setDescription("Transaction type" + " " +transactionCreate.getTransactionType() + " " + "Account" + " " +transactionCreate.getDestinationAccountId());
         newTransaction.setTransactionType(transactionCreate.getTransactionType());
         newTransaction.setValue(transactionCreate.getValue());
         newTransaction.setDestinationAccountId(transactionCreate.getDestinationAccountId());
