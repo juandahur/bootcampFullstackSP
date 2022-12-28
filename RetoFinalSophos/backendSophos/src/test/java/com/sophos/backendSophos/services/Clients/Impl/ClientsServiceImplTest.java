@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,26 +50,31 @@ class ClientsServiceImplTest {
     @Test
     void getAllClients() {
         when(clientsRepository.findAll()).thenReturn(Arrays.asList(client));
-        assertNotNull(clientsServiceImpl.getAllClients());
+        List<Clients> clientsList= clientsServiceImpl.getAllClients();
+        assertNotNull(clientsList);
     }
 
     @Test
     void getClientById(){
         when(clientsRepository.findById(1L)).thenReturn(Optional.ofNullable(client));
-        assertNotNull(clientsServiceImpl.getClientById(1L));
+        Optional<Clients> newClient = clientsServiceImpl.getClientById(1L);
+        assertNotNull(newClient);
     }
 
     @Test
     void create(){
         when(clientsRepository.save(any(Clients.class))).thenReturn(client);
-        assertNotNull(clientsServiceImpl.create(new ClientsCreateDto()));
+        Clients newClient = clientsServiceImpl.create(new ClientsCreateDto());
+        assertNotNull(newClient);
     }
 
     @Test
     void update(){
         when(clientsRepository.findById(1L)).thenReturn(Optional.ofNullable(client));
         when(clientsRepository.save(any(Clients.class))).thenReturn(client);
-        assertNotNull(clientsServiceImpl.update(new ClientsUpdateDto(),1L));
+        Clients newClient = clientsServiceImpl.update(new ClientsUpdateDto(),1L);
+        assertNotNull(newClient);
+        verify(clientsRepository,times(1)).save(any(Clients.class));
     }
 
     @Test
