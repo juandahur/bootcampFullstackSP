@@ -47,11 +47,13 @@ class ClientsServiceImplTest {
         client.setModifiedOn(LocalDate.now());
 
     }
+
     @Test
     void getAllClients() {
         when(clientsRepository.findAll()).thenReturn(Arrays.asList(client));
         List<Clients> clientsList= clientsServiceImpl.getAllClients();
         assertNotNull(clientsList);
+        assertEquals(clientsList.stream().count(), 1);
     }
 
     @Test
@@ -59,13 +61,17 @@ class ClientsServiceImplTest {
         when(clientsRepository.findById(1L)).thenReturn(Optional.ofNullable(client));
         Optional<Clients> newClient = clientsServiceImpl.getClientById(1L);
         assertNotNull(newClient);
+        assertEquals(newClient.stream().count(), 1);
+        assertEquals(newClient.get().getFirstName(), client.getFirstName());
     }
 
     @Test
     void create(){
         when(clientsRepository.save(any(Clients.class))).thenReturn(client);
         Clients newClient = clientsServiceImpl.create(new ClientsCreateDto());
+        assertEquals(newClient.getFirstName(), client.getFirstName());
         assertNotNull(newClient);
+        assertEquals(newClient.getFirstName(), client.getFirstName());
     }
 
     @Test
@@ -74,14 +80,16 @@ class ClientsServiceImplTest {
         when(clientsRepository.save(any(Clients.class))).thenReturn(client);
         Clients newClient = clientsServiceImpl.update(new ClientsUpdateDto(),1L);
         assertNotNull(newClient);
+        assertEquals(newClient.getFirstName(), client.getFirstName());
         verify(clientsRepository,times(1)).save(any(Clients.class));
     }
 
     @Test
     void deleteById(){
-        clientsServiceImpl.deleteById(1L);
+        assertDoesNotThrow(() ->{
+            clientsServiceImpl.deleteById(1L);
+        });
         verify(clientsRepository,times(1)).deleteById(1L);
 
     }
-
 }
