@@ -39,6 +39,8 @@ export class TransactionsCreateComponent implements OnInit{
 
     createTransaction(dataTransaction: any) {
       const id = this.route.snapshot.paramMap.get('id');
+
+
       if(dataTransaction.transactionType == "deposit" || dataTransaction.transactionType == "withdrawal"){
         dataTransaction.destinationAccountId = id;
       }

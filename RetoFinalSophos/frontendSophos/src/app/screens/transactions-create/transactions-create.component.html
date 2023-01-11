@@ -13,7 +13,7 @@
           </div>
        <div *ngIf="transactionDetails.transactionType=='transfer'">
         <select class="form-select form-select-lg bg-dark text-secondary" [(ngModel)]="transactionDetails.destinationAccountId" >
-            <option [value]="item" *ngFor="let item of Products">{{item.accountNumber}}</option>
+            <option [value]="item.id" *ngFor="let item of Products">{{item.accountNumber}}</option>
         </select>
         </div>
         <br>
