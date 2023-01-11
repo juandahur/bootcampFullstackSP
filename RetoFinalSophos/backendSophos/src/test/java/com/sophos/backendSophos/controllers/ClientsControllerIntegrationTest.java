@@ -3,16 +3,12 @@ package com.sophos.backendSophos.controllers;
 import com.sophos.backendSophos.models.Clients;
 import com.sophos.backendSophos.services.Clients.ClientsService;
 import com.sophos.backendSophos.services.Clients.ClientsValidationsService;
-import com.sophos.backendSophos.services.Clients.Impl.ClientsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -36,7 +32,7 @@ public class ClientsControllerIntegrationTest {
     private MockMvc mvc;
 
     @MockBean
-    private ClientsService clientsService;;
+    private ClientsService clientsService;
 
     @MockBean
     private ClientsValidationsService clientsValidationsService;
